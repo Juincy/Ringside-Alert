@@ -1,0 +1,43 @@
+name: Release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+      - name: Decode signing key
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          test -n "$KEYSTORE_B64" || { echo "KEYSTORE_BASE64 secret is missing"; exit 1; }
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+      - name: Build signed APK
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ringside
+          KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          gradle assembleRelease -PversionName="$VERSION" -PversionCode="$GITHUB_RUN_NUMBER" --stacktrace
+      - name: Name the APK and write checksum
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk RingsideAlert.apk
+          sha256sum RingsideAlert.apk > RingsideAlert.apk.sha256
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            RingsideAlert.apk
+            RingsideAlert.apk.sha256
