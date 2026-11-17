@@ -1,0 +1,95 @@
+{
+ "updated": "2026-11-17T16:04:24+00:00",
+ "shows": [
+  {
+   "id": "wwe-nxt",
+   "company": "WWE",
+   "brand": "NXT",
+   "name": "NXT",
+   "image": "nxt",
+   "network": "The CW",
+   "startsAt": "2026-11-18T01:00:00+00:00"
+  },
+  {
+   "id": "wwe-nxt",
+   "company": "WWE",
+   "brand": "NXT",
+   "name": "NXT",
+   "image": "nxt",
+   "network": "The CW",
+   "startsAt": "2026-11-25T01:00:00+00:00"
+  },
+  {
+   "id": "aew-dynamite",
+   "company": "AEW",
+   "brand": "Dynamite",
+   "name": "AEW Dynamite",
+   "image": "dynamite",
+   "network": "TBS",
+   "startsAt": "2026-11-19T01:00:00+00:00"
+  },
+  {
+   "id": "aew-dynamite",
+   "company": "AEW",
+   "brand": "Dynamite",
+   "name": "AEW Dynamite",
+   "image": "dynamite",
+   "network": "TBS",
+   "startsAt": "2026-11-26T01:00:00+00:00"
+  },
+  {
+   "id": "aew-collision",
+   "company": "AEW",
+   "brand": "Collision",
+   "name": "AEW Collision",
+   "image": "collision",
+   "network": "TNT",
+   "startsAt": "2026-11-22T01:00:00+00:00"
+  },
+  {
+   "id": "aew-collision",
+   "company": "AEW",
+   "brand": "Collision",
+   "name": "AEW Collision",
+   "image": "collision",
+   "network": "TNT",
+   "startsAt": "2026-11-27T02:00:00+00:00"
+  },
+  {
+   "id": "tna-impact",
+   "company": "TNA",
+   "brand": "Impact",
+   "name": "TNA Impact",
+   "image": "",
+   "network": "AMC",
+   "startsAt": "2026-11-20T02:00:00+00:00"
+  },
+  {
+   "id": "tna-impact",
+   "company": "TNA",
+   "brand": "Impact",
+   "name": "TNA Impact",
+   "image": "",
+   "network": "AMC",
+   "startsAt": "2026-11-27T02:00:00+00:00"
+  },
+  {
+   "id": "aaa",
+   "company": "AAA",
+   "brand": "AAA",
+   "name": "AAA Lucha Libre",
+   "image": "aaa",
+   "network": "YouTube",
+   "startsAt": "2026-11-21T12:00:00+00:00"
+  },
+  {
+   "id": "aaa",
+   "company": "AAA",
+   "brand": "AAA",
+   "name": "AAA Lucha Libre",
+   "image": "aaa",
+   "network": "YouTube",
+   "startsAt": "2026-11-28T12:00:00+00:00"
+  }
+ ]
+}
