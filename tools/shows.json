@@ -1,0 +1,10 @@
+[
+  {"id":"wwe-raw","company":"WWE","brand":"Raw","name":"Monday Night Raw","query":"WWE Raw","must":"Raw","image":"raw","watch":"Netflix"},
+  {"id":"wwe-nxt","company":"WWE","brand":"NXT","name":"NXT","query":"WWE NXT","must":"NXT","image":"nxt","watch":"The CW"},
+  {"id":"wwe-smackdown","company":"WWE","brand":"SmackDown","name":"Friday Night SmackDown","query":"WWE SmackDown","must":"SmackDown","image":"smackdown","watch":"USA Network"},
+  {"id":"aew-dynamite","company":"AEW","brand":"Dynamite","name":"AEW Dynamite","query":"AEW Dynamite","must":"Dynamite","image":"dynamite","watch":"TBS"},
+  {"id":"aew-collision","company":"AEW","brand":"Collision","name":"AEW Collision","query":"AEW Collision","must":"Collision","image":"collision","watch":"TBS"},
+  {"id":"tna-impact","company":"TNA","brand":"Impact","name":"TNA Impact","query":"TNA Impact","must":"Impact","image":"","watch":"Check listings"},
+  {"id":"njpw","company":"NJPW","brand":"NJPW","name":"New Japan Pro-Wrestling","query":"New Japan Pro-Wrestling","must":"Japan","image":"njpw","watch":"Check listings"},
+  {"id":"aaa","company":"AAA","brand":"AAA","name":"AAA Lucha Libre","query":"AAA Lucha Libre","must":"AAA","image":"aaa","watch":"Check listings"}
+]
