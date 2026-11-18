@@ -86,6 +86,8 @@ fun tint(c: String): Color = when (c) {
     "AEW" -> Color(0xFF185FA5)
     "TNA" -> Color(0xFF534AB7)
     "NJPW" -> Color(0xFF0F6E56)
+    "ROH" -> Color(0xFF8A6D1F)
+    "MLW" -> Color(0xFF3D5A6C)
     else -> Color(0xFF854F0B)
 }
 
@@ -299,7 +301,9 @@ fun ShowsScreen() {
         if (list.isEmpty()) {
             item(span = { GridItemSpan(maxLineSpan) }) {
                 Text(
-                    if (Store.shows.isEmpty()) "No schedule yet. Connect to the internet and reopen the app." else "No shows on this day.",
+                    if (Store.shows.isNotEmpty()) "No shows on this day."
+                    else if (Store.err.isEmpty()) "Loading the schedule…"
+                    else "Could not load the schedule: " + Store.err,
                     Modifier.fillMaxWidth().padding(vertical = 48.dp), textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -428,15 +432,18 @@ fun SettingsScreen() {
             val lastText = if (Store.last == 0L) "never" else
                 DateTimeFormatter.ofPattern("MMM d, h:mm a").format(Instant.ofEpochMilli(Store.last).atZone(ZoneId.systemDefault()))
             Text(Store.shows.size.toString() + " upcoming airings loaded", color = cs.onSurface)
+            if (Store.err.isNotEmpty()) {
+                Text("Problem: " + Store.err, color = Accent, fontSize = 13.sp, modifier = Modifier.padding(bottom = 4.dp))
+            }
             Text("Last updated: " + lastText, color = cs.onSurfaceVariant, fontSize = 13.sp, modifier = Modifier.padding(top = 2.dp, bottom = 10.dp))
             Chip(if (Store.busy) "Working…" else "Refresh now", false) {
                 if (Store.busy) return@Chip
                 scope.launch {
                     Store.busy = true
                     val ok = withContext(Dispatchers.IO) { Repo.refresh(ctx) }
+                    Store.err = if (ok) "" else Repo.lastError
                     Store.reload()
                     Store.busy = false
-                    if (!ok) Store.upd = "Could not reach the schedule."
                 }
             }
         }

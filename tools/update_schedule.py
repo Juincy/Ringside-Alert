@@ -1,8 +1,9 @@
-"""Builds schedule.json from TVmaze (https://www.tvmaze.com/api, CC BY-SA).
+"""Builds schedule.json for the app.
 
-For each show in tools/shows.json it looks up the show, takes upcoming episode air times
-for the next 14 days, and falls back to the show's weekly schedule if no episodes are listed.
-Shows TVmaze does not know are skipped and reported in the log.
+Shows with a "weekly" slot in tools/shows.json are generated directly from that slot for the next 14 days
+(regular weekly shows never need entering by hand). Shows without one are looked up on TVmaze
+(https://www.tvmaze.com/api, CC BY-SA) and skipped if TVmaze has no upcoming airings.
+Edit tools/shows.json to change a time, a channel, or to add a promotion.
 """
 import json
 import sys
@@ -20,37 +21,38 @@ def get(path):
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
             return json.load(r)
-    except Exception as e:  # network error, 404, rate limit
+    except Exception as e:
         print("request failed:", path, e)
         return None
 
 
-def upcoming(show, now, end):
-    starts = []
-    for e in get("/shows/%d/episodes" % show["id"]) or []:
-        stamp = e.get("airstamp")
-        if not stamp:
-            continue
-        t = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
-        if now - timedelta(hours=3) <= t <= end:
-            starts.append(t)
-    if starts:
-        return starts
-    sched = show.get("schedule") or {}
-    if not sched.get("time") or not sched.get("days"):
-        return []
-    net = show.get("webChannel") or show.get("network") or {}
-    tzname = (net.get("country") or {}).get("timezone") or "America/New_York"
-    tz = ZoneInfo(tzname)
-    hh, mm = (int(x) for x in sched["time"].split(":")[:2])
+def weekly(w, now, end):
+    tz = ZoneInfo(w["tz"])
+    hh, mm = (int(x) for x in w["time"].split(":")[:2])
     out = []
-    for i in range(DAYS + 1):
+    for i in range(DAYS + 2):
         d = (now.astimezone(tz) + timedelta(days=i)).date()
-        if d.strftime("%A") in sched["days"]:
+        if d.strftime("%A") == w["day"]:
             t = datetime.combine(d, time(hh, mm), tzinfo=tz)
             if now - timedelta(hours=3) <= t <= end:
                 out.append(t)
     return out
+
+
+def from_tvmaze(c, now, end):
+    show = get("/singlesearch/shows?q=" + urllib.parse.quote(c["query"]))
+    if not show or c["must"].lower() not in show["name"].lower():
+        print("skipped %s: TVmaze match was %r" % (c["id"], show and show["name"]))
+        return [], c["watch"]
+    net = show.get("webChannel") or show.get("network") or {}
+    watch = c["watch"] if c["watch"] != "Check listings" else (net.get("name") or c["watch"])
+    starts = []
+    for e in get("/shows/%d/episodes" % show["id"]) or []:
+        if e.get("airstamp"):
+            t = datetime.fromisoformat(e["airstamp"].replace("Z", "+00:00"))
+            if now - timedelta(hours=3) <= t <= end:
+                starts.append(t)
+    return starts, watch
 
 
 def main():
@@ -59,14 +61,11 @@ def main():
     end = now + timedelta(days=DAYS)
     rows = []
     for c in cfg:
-        show = get("/singlesearch/shows?q=" + urllib.parse.quote(c["query"]))
-        if not show or c["must"].lower() not in show["name"].lower():
-            print("skipped %s: TVmaze match was %r" % (c["id"], show and show["name"]))
-            continue
-        net = show.get("webChannel") or show.get("network") or {}
-        watch = net.get("name") or c["watch"]
-        starts = upcoming(show, now, end)
-        print("%s -> %s (%s): %d airings" % (c["id"], show["name"], watch, len(starts)))
+        if "weekly" in c:
+            starts, watch = weekly(c["weekly"], now, end), c["watch"]
+        else:
+            starts, watch = from_tvmaze(c, now, end)
+        print("%s: %d airings (%s)" % (c["id"], len(starts), watch))
         for t in sorted(set(starts)):
             rows.append({
                 "id": c["id"], "company": c["company"], "brand": c["brand"], "name": c["name"],
@@ -74,17 +73,17 @@ def main():
             })
     if not rows:
         print("no airings found; leaving schedule.json unchanged")
-        return 0
+        return 1
     try:
         old = json.load(open("schedule.json")).get("shows")
     except Exception:
         old = None
-    if old == rows:
+    if old != rows:
+        with open("schedule.json", "w") as f:
+            json.dump({"updated": now.isoformat(timespec="seconds"), "shows": rows}, f, indent=1)
+        print("wrote %d airings" % len(rows))
+    else:
         print("schedule unchanged")
-        return 0
-    with open("schedule.json", "w") as f:
-        json.dump({"updated": now.isoformat(timespec="seconds"), "shows": rows}, f, indent=1)
-    print("wrote %d airings" % len(rows))
     return 0
 
 

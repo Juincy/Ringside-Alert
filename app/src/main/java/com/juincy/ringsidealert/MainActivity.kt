@@ -7,8 +7,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -55,7 +55,8 @@ fun AppRoot() {
     val askNotif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
     LaunchedEffect(Unit) {
         if (Build.VERSION.SDK_INT >= 33) askNotif.launch(Manifest.permission.POST_NOTIFICATIONS)
-        withContext(Dispatchers.IO) { Repo.refresh(Store.app) }
+        val ok = withContext(Dispatchers.IO) { Repo.refresh(Store.app) }
+        Store.err = if (ok) "" else Repo.lastError
         Store.reload()
         if (Store.au) {
             val r = withContext(Dispatchers.IO) { runCatching { Updater.latest() }.getOrNull() }

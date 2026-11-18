@@ -8,7 +8,7 @@ import java.net.URL
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-val COMPANIES = listOf("WWE", "AEW", "TNA", "NJPW", "AAA")
+val COMPANIES = listOf("WWE", "AEW", "TNA", "ROH", "MLW", "AAA", "NJPW")
 val LEADS = listOf("At start", "30 min before", "1 hour before", "Morning of the show")
 
 data class Show(
@@ -63,13 +63,24 @@ object Repo {
         return out.sortedBy { it.start }
     }
 
+    var lastError = ""
+
     fun refresh(ctx: Context): Boolean = try {
         val text = Net.get(URL)
-        parse(text)
-        file(ctx).writeText(text)
-        ctx.getSharedPreferences("ra", 0).edit().putLong("last", System.currentTimeMillis()).apply()
-        true
+        if (parse(text).isEmpty()) {
+            lastError = "the schedule file is empty. The schedule job on GitHub has not filled it yet."
+            false
+        } else {
+            file(ctx).writeText(text)
+            ctx.getSharedPreferences("ra", 0).edit().putLong("last", System.currentTimeMillis()).apply()
+            lastError = ""
+            true
+        }
+    } catch (e: java.io.FileNotFoundException) {
+        lastError = "the schedule file was not found on GitHub (error 404). Run the Update schedule job."
+        false
     } catch (e: Exception) {
+        lastError = e.message ?: "network error"
         false
     }
 

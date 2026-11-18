@@ -1,10 +1,155 @@
 [
-  {"id":"wwe-raw","company":"WWE","brand":"Raw","name":"Monday Night Raw","query":"WWE Raw","must":"Raw","image":"raw","watch":"Netflix"},
-  {"id":"wwe-nxt","company":"WWE","brand":"NXT","name":"NXT","query":"WWE NXT","must":"NXT","image":"nxt","watch":"The CW"},
-  {"id":"wwe-smackdown","company":"WWE","brand":"SmackDown","name":"Friday Night SmackDown","query":"WWE SmackDown","must":"SmackDown","image":"smackdown","watch":"USA Network"},
-  {"id":"aew-dynamite","company":"AEW","brand":"Dynamite","name":"AEW Dynamite","query":"AEW Dynamite","must":"Dynamite","image":"dynamite","watch":"TBS"},
-  {"id":"aew-collision","company":"AEW","brand":"Collision","name":"AEW Collision","query":"AEW Collision","must":"Collision","image":"collision","watch":"TBS"},
-  {"id":"tna-impact","company":"TNA","brand":"Impact","name":"TNA Impact","query":"TNA Impact","must":"Impact","image":"","watch":"Check listings"},
-  {"id":"njpw","company":"NJPW","brand":"NJPW","name":"New Japan Pro-Wrestling","query":"New Japan Pro-Wrestling","must":"Japan","image":"njpw","watch":"Check listings"},
-  {"id":"aaa","company":"AAA","brand":"AAA","name":"AAA Lucha Libre","query":"AAA Lucha Libre","must":"AAA","image":"aaa","watch":"Check listings"}
+ {
+  "id": "wwe-raw",
+  "company": "WWE",
+  "brand": "Raw",
+  "name": "Monday Night Raw",
+  "image": "raw",
+  "watch": "Netflix",
+  "weekly": {
+   "day": "Monday",
+   "time": "20:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "wwe-nxt",
+  "company": "WWE",
+  "brand": "NXT",
+  "name": "NXT",
+  "image": "nxt",
+  "watch": "The CW",
+  "weekly": {
+   "day": "Tuesday",
+   "time": "20:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "wwe-evolve",
+  "company": "WWE",
+  "brand": "Evolve",
+  "name": "WWE Evolve",
+  "image": "evolve",
+  "watch": "Tubi",
+  "weekly": {
+   "day": "Wednesday",
+   "time": "20:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "wwe-main-event",
+  "company": "WWE",
+  "brand": "Main Event",
+  "name": "WWE Main Event",
+  "image": "mainevent",
+  "watch": "YouTube",
+  "weekly": {
+   "day": "Thursday",
+   "time": "20:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "wwe-smackdown",
+  "company": "WWE",
+  "brand": "SmackDown",
+  "name": "Friday Night SmackDown",
+  "image": "smackdown",
+  "watch": "USA Network",
+  "weekly": {
+   "day": "Friday",
+   "time": "20:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "aew-dynamite",
+  "company": "AEW",
+  "brand": "Dynamite",
+  "name": "AEW Dynamite",
+  "image": "dynamite",
+  "watch": "TBS / HBO Max",
+  "weekly": {
+   "day": "Wednesday",
+   "time": "20:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "aew-collision",
+  "company": "AEW",
+  "brand": "Collision",
+  "name": "AEW Collision",
+  "image": "collision",
+  "watch": "TBS / HBO Max",
+  "weekly": {
+   "day": "Saturday",
+   "time": "20:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "tna-impact",
+  "company": "TNA",
+  "brand": "Impact",
+  "name": "TNA Thursday Night iMPACT!",
+  "image": "tna",
+  "watch": "AMC / AMC+",
+  "weekly": {
+   "day": "Thursday",
+   "time": "21:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "roh-tv",
+  "company": "ROH",
+  "brand": "ROH TV",
+  "name": "ROH TV",
+  "image": "roh",
+  "watch": "HonorClub",
+  "weekly": {
+   "day": "Thursday",
+   "time": "20:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "mlw-fusion",
+  "company": "MLW",
+  "brand": "Fusion",
+  "name": "MLW Fusion",
+  "image": "mlw",
+  "watch": "Tubi",
+  "weekly": {
+   "day": "Thursday",
+   "time": "20:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "aaa",
+  "company": "AAA",
+  "brand": "AAA",
+  "name": "Lucha Libre AAA",
+  "image": "aaa",
+  "watch": "Fox Deportes / YouTube",
+  "weekly": {
+   "day": "Saturday",
+   "time": "22:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
+  "id": "njpw",
+  "company": "NJPW",
+  "brand": "NJPW",
+  "name": "New Japan Pro-Wrestling",
+  "query": "New Japan Pro-Wrestling",
+  "must": "Japan",
+  "image": "njpw",
+  "watch": "NJPW World"
+ }
 ]

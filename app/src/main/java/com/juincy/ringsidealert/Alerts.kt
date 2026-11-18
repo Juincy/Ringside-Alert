@@ -79,13 +79,13 @@ object Alerts {
             pi(ctx, c.toInt(), PendingIntent.FLAG_NO_CREATE)?.let { am.cancel(it) }
         }
         val alerts = p.getStringSet("alerts", emptySet())!!
-        val cos = p.getStringSet("cos", COMPANIES.toSet())!!
+        val off = p.getStringSet("off", emptySet())!!
         val lead = p.getString("lead", "30 min before")!!
         val now = ZonedDateTime.now()
         val fmt = DateTimeFormatter.ofPattern("h:mm a")
         val codes = HashSet<String>()
         for (s in Repo.cached(ctx)) {
-            if (s.id !in alerts || s.company !in cos) continue
+            if (s.id !in alerts || s.company in off) continue
             val at = when (lead) {
                 "At start" -> s.start
                 "30 min before" -> s.start.minus(Duration.ofMinutes(30))

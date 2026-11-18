@@ -30,6 +30,7 @@ object Store {
     var rel by mutableStateOf<Updater.Release?>(null)
     var busy by mutableStateOf(false)
     var last by mutableStateOf(0L)
+    var err by mutableStateOf("")
     var tick by mutableIntStateOf(0)
 
     private fun p() = app.getSharedPreferences("ra", 0)
@@ -40,7 +41,8 @@ object Store {
         val p = p()
         favs.addAll(p.getStringSet("favs", emptySet())!!)
         alerts.addAll(p.getStringSet("alerts", emptySet())!!)
-        cos.addAll(p.getStringSet("cos", COMPANIES.toSet())!!)
+        val off = p.getStringSet("off", emptySet())!!
+        cos.addAll(COMPANIES.filter { it !in off })
         lead = p.getString("lead", lead)!!
         theme = p.getString("theme", theme)!!
         au = p.getBoolean("au", true)
@@ -53,7 +55,7 @@ object Store {
         p().edit()
             .putStringSet("favs", favs.toSet())
             .putStringSet("alerts", alerts.toSet())
-            .putStringSet("cos", cos.toSet())
+            .putStringSet("off", COMPANIES.filter { it !in cos }.toSet())
             .putString("lead", lead)
             .putString("theme", theme)
             .putBoolean("au", au)
