@@ -1,5 +1,8 @@
 name: Update schedule
 on:
+  push:
+    paths:
+      - "tools/**"
   schedule:
     - cron: "17 */6 * * *"
   workflow_dispatch:
