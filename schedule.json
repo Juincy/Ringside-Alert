@@ -1,14 +1,23 @@
 {
- "updated": "2026-11-17T16:04:24+00:00",
+ "updated": "2026-11-18T00:58:37+00:00",
  "shows": [
   {
-   "id": "wwe-nxt",
+   "id": "wwe-raw",
    "company": "WWE",
-   "brand": "NXT",
-   "name": "NXT",
-   "image": "nxt",
-   "network": "The CW",
-   "startsAt": "2026-11-18T01:00:00+00:00"
+   "brand": "Raw",
+   "name": "Monday Night Raw",
+   "image": "raw",
+   "network": "Netflix",
+   "startsAt": "2026-11-23T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-raw",
+   "company": "WWE",
+   "brand": "Raw",
+   "name": "Monday Night Raw",
+   "image": "raw",
+   "network": "Netflix",
+   "startsAt": "2026-11-30T20:00:00-05:00"
   },
   {
    "id": "wwe-nxt",
@@ -17,7 +26,70 @@
    "name": "NXT",
    "image": "nxt",
    "network": "The CW",
-   "startsAt": "2026-11-25T01:00:00+00:00"
+   "startsAt": "2026-11-17T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-nxt",
+   "company": "WWE",
+   "brand": "NXT",
+   "name": "NXT",
+   "image": "nxt",
+   "network": "The CW",
+   "startsAt": "2026-11-24T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-evolve",
+   "company": "WWE",
+   "brand": "Evolve",
+   "name": "WWE Evolve",
+   "image": "evolve",
+   "network": "Tubi",
+   "startsAt": "2026-11-18T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-evolve",
+   "company": "WWE",
+   "brand": "Evolve",
+   "name": "WWE Evolve",
+   "image": "evolve",
+   "network": "Tubi",
+   "startsAt": "2026-11-25T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-main-event",
+   "company": "WWE",
+   "brand": "Main Event",
+   "name": "WWE Main Event",
+   "image": "mainevent",
+   "network": "YouTube",
+   "startsAt": "2026-11-19T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-main-event",
+   "company": "WWE",
+   "brand": "Main Event",
+   "name": "WWE Main Event",
+   "image": "mainevent",
+   "network": "YouTube",
+   "startsAt": "2026-11-26T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-smackdown",
+   "company": "WWE",
+   "brand": "SmackDown",
+   "name": "Friday Night SmackDown",
+   "image": "smackdown",
+   "network": "USA Network",
+   "startsAt": "2026-11-20T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-smackdown",
+   "company": "WWE",
+   "brand": "SmackDown",
+   "name": "Friday Night SmackDown",
+   "image": "smackdown",
+   "network": "USA Network",
+   "startsAt": "2026-11-27T20:00:00-05:00"
   },
   {
    "id": "aew-dynamite",
@@ -25,8 +97,8 @@
    "brand": "Dynamite",
    "name": "AEW Dynamite",
    "image": "dynamite",
-   "network": "TBS",
-   "startsAt": "2026-11-19T01:00:00+00:00"
+   "network": "TBS / HBO Max",
+   "startsAt": "2026-11-18T20:00:00-05:00"
   },
   {
    "id": "aew-dynamite",
@@ -34,8 +106,8 @@
    "brand": "Dynamite",
    "name": "AEW Dynamite",
    "image": "dynamite",
-   "network": "TBS",
-   "startsAt": "2026-11-26T01:00:00+00:00"
+   "network": "TBS / HBO Max",
+   "startsAt": "2026-11-25T20:00:00-05:00"
   },
   {
    "id": "aew-collision",
@@ -43,8 +115,8 @@
    "brand": "Collision",
    "name": "AEW Collision",
    "image": "collision",
-   "network": "TNT",
-   "startsAt": "2026-11-22T01:00:00+00:00"
+   "network": "TBS / HBO Max",
+   "startsAt": "2026-11-21T20:00:00-05:00"
   },
   {
    "id": "aew-collision",
@@ -52,44 +124,80 @@
    "brand": "Collision",
    "name": "AEW Collision",
    "image": "collision",
-   "network": "TNT",
-   "startsAt": "2026-11-27T02:00:00+00:00"
+   "network": "TBS / HBO Max",
+   "startsAt": "2026-11-28T20:00:00-05:00"
   },
   {
    "id": "tna-impact",
    "company": "TNA",
    "brand": "Impact",
-   "name": "TNA Impact",
-   "image": "",
-   "network": "AMC",
-   "startsAt": "2026-11-20T02:00:00+00:00"
+   "name": "TNA Thursday Night iMPACT!",
+   "image": "tna",
+   "network": "AMC / AMC+",
+   "startsAt": "2026-11-19T21:00:00-05:00"
   },
   {
    "id": "tna-impact",
    "company": "TNA",
    "brand": "Impact",
-   "name": "TNA Impact",
-   "image": "",
-   "network": "AMC",
-   "startsAt": "2026-11-27T02:00:00+00:00"
+   "name": "TNA Thursday Night iMPACT!",
+   "image": "tna",
+   "network": "AMC / AMC+",
+   "startsAt": "2026-11-26T21:00:00-05:00"
+  },
+  {
+   "id": "roh-tv",
+   "company": "ROH",
+   "brand": "ROH TV",
+   "name": "ROH TV",
+   "image": "roh",
+   "network": "HonorClub",
+   "startsAt": "2026-11-19T20:00:00-05:00"
+  },
+  {
+   "id": "roh-tv",
+   "company": "ROH",
+   "brand": "ROH TV",
+   "name": "ROH TV",
+   "image": "roh",
+   "network": "HonorClub",
+   "startsAt": "2026-11-26T20:00:00-05:00"
+  },
+  {
+   "id": "mlw-fusion",
+   "company": "MLW",
+   "brand": "Fusion",
+   "name": "MLW Fusion",
+   "image": "mlw",
+   "network": "Tubi",
+   "startsAt": "2026-11-19T20:00:00-05:00"
+  },
+  {
+   "id": "mlw-fusion",
+   "company": "MLW",
+   "brand": "Fusion",
+   "name": "MLW Fusion",
+   "image": "mlw",
+   "network": "Tubi",
+   "startsAt": "2026-11-26T20:00:00-05:00"
   },
   {
    "id": "aaa",
    "company": "AAA",
    "brand": "AAA",
-   "name": "AAA Lucha Libre",
+   "name": "Lucha Libre AAA",
    "image": "aaa",
-   "network": "YouTube",
-   "startsAt": "2026-11-21T12:00:00+00:00"
+   "network": "Fox Deportes / YouTube",
+   "startsAt": "2026-11-21T22:00:00-05:00"
   },
   {
    "id": "aaa",
    "company": "AAA",
    "brand": "AAA",
-   "name": "AAA Lucha Libre",
+   "name": "Lucha Libre AAA",
    "image": "aaa",
-   "network": "YouTube",
-   "startsAt": "2026-11-28T12:00:00+00:00"
+   "network": "Fox Deportes / YouTube",
+   "startsAt": "2026-11-28T22:00:00-05:00"
   }
  ]
 }
