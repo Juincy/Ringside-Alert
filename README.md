@@ -39,3 +39,22 @@ For each update, publish a higher tag (`v1.0.1`). Installed apps update themselv
 ## Notes
 
 Users allow "install unknown apps" for Ringside Alert once. The test build from Step 1 is signed with a throwaway key, so uninstall it before installing the real release.
+
+## Adding or fixing events (pay-per-views)
+
+Open `tools/events.json` on GitHub, click the pencil, and add an entry like this (commas between entries, keep the `[ ]` around everything):
+
+    {
+     "id": "wwe-wrestlemania-43",
+     "company": "WWE",
+     "name": "WrestleMania 43",
+     "image": "",
+     "watch": "ESPN app",
+     "startsAt": "2027-04-10T19:00:00-04:00"
+    }
+
+- `id` must be unique and never reused. `company` must be one of WWE, AEW, TNA, ROH, MLW, AAA, CMLL, NJPW.
+- `startsAt` is the start time with its UTC offset. Eastern time is `-05:00` in winter and `-04:00` in summer. Tokyo is `+09:00`.
+- `image` is the name of a picture in `app/src/main/res/drawable-nodpi` without `.jpg`, or empty for a colored tile.
+- After you commit, the schedule job (Actions > Update schedule) refreshes `schedule.json`. If the file has a typo, the job log says which entry it skipped.
+- Past events drop off by themselves.

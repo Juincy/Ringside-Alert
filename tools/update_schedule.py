@@ -55,6 +55,28 @@ def from_tvmaze(c, now, end):
     return starts, watch
 
 
+def events(now):
+    try:
+        cfg = json.load(open("tools/events.json"))
+    except Exception:
+        return []
+    out = []
+    for e in cfg:
+        try:
+            t = datetime.fromisoformat(e["startsAt"])
+            for key in ("id", "company", "name", "watch"):
+                e[key]
+        except Exception as err:
+            print("skipped a bad entry in tools/events.json:", e, err)
+            continue
+        if now - timedelta(hours=3) <= t <= now + timedelta(days=400):
+            out.append({
+                "id": e["id"], "company": e["company"], "brand": "PPV", "name": e["name"],
+                "image": e.get("image", ""), "network": e["watch"], "startsAt": t.isoformat(), "type": "event",
+            })
+    return out
+
+
 def main():
     cfg = json.load(open("tools/shows.json"))
     now = datetime.now(timezone.utc)
@@ -71,6 +93,7 @@ def main():
                 "id": c["id"], "company": c["company"], "brand": c["brand"], "name": c["name"],
                 "image": c["image"], "network": watch, "startsAt": t.isoformat(),
             })
+    rows += events(now)
     if not rows:
         print("no airings found; leaving schedule.json unchanged")
         return 1

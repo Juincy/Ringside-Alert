@@ -81,6 +81,38 @@ import java.util.Locale
 val Dsp = FontFamily(Typeface.create("sans-serif-condensed", Typeface.BOLD))
 private val Accent = Color(0xFFD92D27)
 
+val FIT = setOf("aaa", "njpw", "tna", "mlw", "roh", "cmll")
+fun fitBg(n: String): Color = if (n == "roh" || n == "cmll") Color.White else Color.Black
+
+fun watchUrl(net: String): String? {
+    val n = net.lowercase()
+    return when {
+        "netflix" in n -> "https://www.netflix.com"
+        "tubi" in n -> "https://tubitv.com"
+        "fox deportes" in n -> "https://www.foxdeportes.com"
+        "youtube" in n -> "https://www.youtube.com"
+        "honorclub" in n -> "https://www.watchroh.com"
+        "amc" in n -> "https://www.amc.com"
+        "espn" in n -> "https://www.espn.com"
+        "hbo" in n -> "https://www.hbomax.com"
+        "tbs" in n -> "https://www.tbs.com"
+        "usa network" in n -> "https://www.usanetwork.com"
+        "cw" in n -> "https://www.cwtv.com"
+        "njpw" in n -> "https://njpwworld.com"
+        else -> null
+    }
+}
+
+fun calendarIntent(s: Show): Intent = Intent(Intent.ACTION_INSERT)
+    .setData(android.provider.CalendarContract.Events.CONTENT_URI)
+    .putExtra(android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME, s.start.toInstant().toEpochMilli())
+    .putExtra(
+        android.provider.CalendarContract.EXTRA_EVENT_END_TIME,
+        s.start.plusHours(if (s.event) 4L else 2L).toInstant().toEpochMilli(),
+    )
+    .putExtra(android.provider.CalendarContract.Events.TITLE, s.name)
+    .putExtra(android.provider.CalendarContract.Events.DESCRIPTION, "Watch on " + s.network)
+
 fun tint(c: String): Color = when (c) {
     "WWE" -> Color(0xFFA32D2D)
     "AEW" -> Color(0xFF185FA5)
@@ -88,6 +120,7 @@ fun tint(c: String): Color = when (c) {
     "NJPW" -> Color(0xFF0F6E56)
     "ROH" -> Color(0xFF8A6D1F)
     "MLW" -> Color(0xFF3D5A6C)
+    "CMLL" -> Color(0xFF7A1F5A)
     else -> Color(0xFF854F0B)
 }
 
@@ -184,11 +217,11 @@ fun BellButton(id: String, modifier: Modifier = Modifier) {
 fun Poster(s: Show) {
     val ctx = LocalContext.current
     val res = remember(s.image) { ctx.resources.getIdentifier(s.image, "drawable", ctx.packageName) }
-    val fit = s.image == "aaa" || s.image == "njpw"
+    val fit = s.image in FIT
     val shape = RoundedCornerShape(16.dp)
     Box(
         Modifier.fillMaxWidth().aspectRatio(0.75f).shadow(8.dp, shape).clip(shape)
-            .background(if (fit) Color.Black else tint(s.company))
+            .background(if (fit) fitBg(s.image) else tint(s.company))
             .border(1.dp, Brush.verticalGradient(listOf(Color.White.copy(alpha = 0.4f), Color.Black.copy(alpha = 0.4f))), shape)
             .clickable { Store.open = s.id },
     ) {
@@ -252,7 +285,7 @@ fun ShowsScreen() {
                     Text(
                         "Update " + rel.version + " is available. Tap to install.", color = Color.White, fontSize = 13.sp,
                         modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp).background(Accent, RoundedCornerShape(12.dp))
-                            .clickable { Store.tab = 3 }.padding(12.dp),
+                            .clickable { Store.tab = 4 }.padding(12.dp),
                     )
                 }
                 Box(Modifier.padding(bottom = 10.dp)) {
@@ -319,9 +352,9 @@ fun DetailScreen(id: String) {
     if (s == null) { Store.open = null; return }
     val ctx = LocalContext.current
     val res = remember(s.image) { ctx.resources.getIdentifier(s.image, "drawable", ctx.packageName) }
-    val fit = s.image == "aaa" || s.image == "njpw"
+    val fit = s.image in FIT
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
-        Box(Modifier.fillMaxWidth().height(340.dp).background(if (fit) Color.Black else tint(s.company))) {
+        Box(Modifier.fillMaxWidth().height(340.dp).background(if (fit) fitBg(s.image) else tint(s.company))) {
             if (res != 0) Image(painterResource(res), s.name, Modifier.fillMaxSize(), contentScale = if (fit) ContentScale.Fit else ContentScale.Crop)
             else Text(s.name, Modifier.align(Alignment.Center).padding(24.dp), color = Color.White, fontFamily = Dsp, fontSize = 40.sp, textAlign = TextAlign.Center)
             Box(
@@ -342,8 +375,18 @@ fun DetailScreen(id: String) {
                 s.start.format(DateTimeFormatter.ofPattern("EEEE, MMM d · h:mm a")),
                 color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp, bottom = 16.dp),
             )
-            Column(Modifier.fillMaxWidth().bevel(14.dp).padding(14.dp)) {
-                Text("Where to watch", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
+            val url = watchUrl(s.network)
+            Column(
+                Modifier.fillMaxWidth().bevel(14.dp)
+                    .clickable(enabled = url != null) {
+                        url?.let { u -> runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(u))) } }
+                    }
+                    .padding(14.dp),
+            ) {
+                Text(
+                    if (url != null) "Where to watch · tap to open" else "Where to watch",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp,
+                )
                 Text(s.network, fontFamily = Dsp, fontSize = 24.sp, color = MaterialTheme.colorScheme.onSurface)
             }
             Spacer(Modifier.height(18.dp))
@@ -354,6 +397,13 @@ fun DetailScreen(id: String) {
                     .background(Brush.verticalGradient(if (on) listOf(Color(0xFF3A3B44), Color(0xFF1E1F26)) else listOf(Color(0xFFFF625A), Color(0xFFB5231D))))
                     .clickable { Store.toggle(Store.alerts, id) }.padding(vertical = 14.dp),
                 color = Color.White, fontFamily = Dsp, fontSize = 20.sp, textAlign = TextAlign.Center,
+            )
+            Spacer(Modifier.height(14.dp))
+            Text(
+                "Add to calendar",
+                Modifier.fillMaxWidth().bevel(14.dp).clickable { runCatching { ctx.startActivity(calendarIntent(s)) } }
+                    .padding(vertical = 14.dp),
+                color = MaterialTheme.colorScheme.onSurface, fontFamily = Dsp, fontSize = 20.sp, textAlign = TextAlign.Center,
             )
         }
     }
@@ -373,10 +423,42 @@ fun ShowRow(s: Show) {
         Column(Modifier.padding(start = 12.dp)) {
             Text(s.name, fontFamily = Dsp, fontSize = 20.sp, color = MaterialTheme.colorScheme.onSurface)
             Text(
-                s.start.format(DateTimeFormatter.ofPattern("EEE h:mm a")) + " · " + s.network,
+                s.start.format(DateTimeFormatter.ofPattern(if (s.event) "MMM d · h:mm a" else "EEE h:mm a")) + " · " + s.network,
                 color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp,
             )
         }
+    }
+}
+
+@Composable
+fun EventRow(s: Show) {
+    Row(
+        Modifier.fillMaxWidth().padding(bottom = 12.dp).bevel(14.dp).clickable { Store.open = s.id }.padding(14.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text(s.company, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
+            Text(s.name, fontFamily = Dsp, fontSize = 22.sp, color = MaterialTheme.colorScheme.onSurface)
+            Text(
+                s.start.format(DateTimeFormatter.ofPattern("EEE, MMM d · h:mm a")),
+                color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp,
+            )
+            Text(s.network, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp)
+        }
+        BellButton(s.id)
+    }
+}
+
+@Composable
+fun EventsScreen() {
+    val cutoff = java.time.ZonedDateTime.now().minusHours(3)
+    val list = Store.shows.filter { it.event && it.start.isAfter(cutoff) }.sortedBy { it.start }
+    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(horizontal = 18.dp)) {
+        item { Heading("Pay-per-view and live events", "Events") }
+        if (list.isEmpty()) item {
+            Text("No upcoming events loaded yet.", color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(vertical = 24.dp))
+        }
+        items(list, key = { it.id }) { EventRow(it) }
     }
 }
 

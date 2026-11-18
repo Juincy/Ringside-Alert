@@ -8,7 +8,7 @@ import java.net.URL
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-val COMPANIES = listOf("WWE", "AEW", "TNA", "ROH", "MLW", "AAA", "NJPW")
+val COMPANIES = listOf("WWE", "AEW", "TNA", "ROH", "MLW", "AAA", "CMLL", "NJPW")
 val LEADS = listOf("At start", "30 min before", "1 hour before", "Morning of the show")
 
 data class Show(
@@ -19,6 +19,7 @@ data class Show(
     val image: String,
     val network: String,
     val start: ZonedDateTime,
+    val event: Boolean = false,
 )
 
 object Net {
@@ -57,6 +58,7 @@ object Repo {
                     o.getString("id"), o.getString("company"), o.getString("brand"),
                     o.getString("name"), o.optString("image", ""), o.optString("network", "Check listings"),
                     ZonedDateTime.parse(o.getString("startsAt")).withZoneSameInstant(zone),
+                    o.optString("type", "weekly") == "event",
                 )
             )
         }

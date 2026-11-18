@@ -143,6 +143,19 @@
   }
  },
  {
+  "id": "cmll-viernes",
+  "company": "CMLL",
+  "brand": "Viernes",
+  "name": "CMLL Viernes Espectacular",
+  "image": "cmll",
+  "watch": "YouTube (CMLL)",
+  "weekly": {
+   "day": "Friday",
+   "time": "20:30",
+   "tz": "America/Mexico_City"
+  }
+ },
+ {
   "id": "njpw",
   "company": "NJPW",
   "brand": "NJPW",

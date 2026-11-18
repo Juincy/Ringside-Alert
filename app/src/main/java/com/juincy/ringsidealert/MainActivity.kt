@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
@@ -73,6 +74,7 @@ fun AppRoot() {
             NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
                 listOf(
                     "Shows" to Icons.Filled.DateRange,
+                    "Events" to Icons.Filled.PlayArrow,
                     "Alerts" to Icons.Filled.Notifications,
                     "Favorites" to Icons.Filled.Star,
                     "Settings" to Icons.Filled.Settings,
@@ -92,8 +94,9 @@ fun AppRoot() {
             when {
                 open != null -> DetailScreen(open)
                 Store.tab == 0 -> ShowsScreen()
-                Store.tab == 1 -> AlertsScreen()
-                Store.tab == 2 -> FavoritesScreen()
+                Store.tab == 1 -> EventsScreen()
+                Store.tab == 2 -> AlertsScreen()
+                Store.tab == 3 -> FavoritesScreen()
                 else -> SettingsScreen()
             }
         }
