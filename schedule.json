@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T00:58:37+00:00",
+ "updated": "2026-11-18T15:27:02+00:00",
  "shows": [
   {
    "id": "wwe-raw",
@@ -26,7 +26,7 @@
    "name": "NXT",
    "image": "nxt",
    "network": "The CW",
-   "startsAt": "2026-11-17T20:00:00-05:00"
+   "startsAt": "2026-11-24T20:00:00-05:00"
   },
   {
    "id": "wwe-nxt",
@@ -35,7 +35,7 @@
    "name": "NXT",
    "image": "nxt",
    "network": "The CW",
-   "startsAt": "2026-11-24T20:00:00-05:00"
+   "startsAt": "2026-12-01T20:00:00-05:00"
   },
   {
    "id": "wwe-evolve",
@@ -198,6 +198,74 @@
    "image": "aaa",
    "network": "Fox Deportes / YouTube",
    "startsAt": "2026-11-28T22:00:00-05:00"
+  },
+  {
+   "id": "cmll-viernes",
+   "company": "CMLL",
+   "brand": "Viernes",
+   "name": "CMLL Viernes Espectacular",
+   "image": "cmll",
+   "network": "YouTube (CMLL)",
+   "startsAt": "2026-11-20T20:30:00-06:00"
+  },
+  {
+   "id": "cmll-viernes",
+   "company": "CMLL",
+   "brand": "Viernes",
+   "name": "CMLL Viernes Espectacular",
+   "image": "cmll",
+   "network": "YouTube (CMLL)",
+   "startsAt": "2026-11-27T20:30:00-06:00"
+  },
+  {
+   "id": "wwe-survivor-series-2026",
+   "company": "WWE",
+   "brand": "PPV",
+   "name": "Survivor Series: WarGames",
+   "image": "",
+   "network": "ESPN app",
+   "startsAt": "2026-11-28T18:00:00-05:00",
+   "type": "event"
+  },
+  {
+   "id": "wwe-wrestlepalooza-perth-2026",
+   "company": "WWE",
+   "brand": "PPV",
+   "name": "Wrestlepalooza: Perth",
+   "image": "",
+   "network": "ESPN app",
+   "startsAt": "2026-12-12T05:30:00-05:00",
+   "type": "event"
+  },
+  {
+   "id": "aew-worlds-end-2026",
+   "company": "AEW",
+   "brand": "PPV",
+   "name": "AEW Worlds End",
+   "image": "",
+   "network": "HBO Max / Prime Video / PPV",
+   "startsAt": "2026-12-19T20:00:00-05:00",
+   "type": "event"
+  },
+  {
+   "id": "njpw-wrestle-kingdom-21",
+   "company": "NJPW",
+   "brand": "PPV",
+   "name": "NJPW Wrestle Kingdom 21",
+   "image": "njpw",
+   "network": "NJPW World",
+   "startsAt": "2027-01-04T16:30:00+09:00",
+   "type": "event"
+  },
+  {
+   "id": "wwe-royal-rumble-2027",
+   "company": "WWE",
+   "brand": "PPV",
+   "name": "Royal Rumble 2027",
+   "image": "",
+   "network": "ESPN app",
+   "startsAt": "2027-02-06T19:00:00-05:00",
+   "type": "event"
   }
  ]
 }
