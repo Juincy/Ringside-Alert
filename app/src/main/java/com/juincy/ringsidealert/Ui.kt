@@ -121,6 +121,11 @@ fun calendarIntent(s: Show): Intent = Intent(Intent.ACTION_INSERT)
     .putExtra(android.provider.CalendarContract.Events.TITLE, s.name)
     .putExtra(android.provider.CalendarContract.Events.DESCRIPTION, "Watch on " + s.network)
 
+fun isLive(s: Show): Boolean {
+    val m = java.time.Duration.between(java.time.ZonedDateTime.now(), s.start).toMinutes()
+    return m >= -180L && m <= 0L
+}
+
 fun tint(c: String): Color = when (c) {
     "WWE" -> Color(0xFFA32D2D)
     "AEW" -> Color(0xFF185FA5)
@@ -193,10 +198,13 @@ fun Heading(small: String, big: String) {
 
 @Composable
 fun Section(t: String) {
-    Text(
-        t, fontFamily = Dsp, fontSize = 22.sp, color = MaterialTheme.colorScheme.onBackground,
-        modifier = Modifier.padding(top = 18.dp, bottom = 8.dp),
-    )
+    Row(Modifier.padding(top = 18.dp, bottom = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+        Box(Modifier.size(width = 4.dp, height = 22.dp).clip(RoundedCornerShape(2.dp)).background(Accent))
+        Text(
+            t, fontFamily = Dsp, fontSize = 22.sp, color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.padding(start = 10.dp),
+        )
+    }
 }
 
 @Composable
@@ -249,7 +257,18 @@ fun Poster(s: Show) {
                 .background(Color(0x8C000000), RoundedCornerShape(10.dp)).padding(horizontal = 9.dp, vertical = 3.dp),
         )
         BellButton(s.id, Modifier.align(Alignment.TopEnd).padding(8.dp))
-        Column(Modifier.align(Alignment.BottomStart).fillMaxWidth().background(Color(0xB0000000)).padding(10.dp)) {
+        if (isLive(s)) {
+            Text(
+                "LIVE", color = Color.White, fontSize = 11.sp, fontFamily = Dsp,
+                modifier = Modifier.align(Alignment.TopStart).padding(start = 8.dp, top = 38.dp)
+                    .background(Accent, RoundedCornerShape(8.dp)).padding(horizontal = 9.dp, vertical = 2.dp),
+            )
+        }
+        Column(
+            Modifier.align(Alignment.BottomStart).fillMaxWidth()
+                .background(Brush.verticalGradient(listOf(Color.Transparent, Color(0xE6000000))))
+                .padding(start = 10.dp, end = 10.dp, bottom = 10.dp, top = 30.dp),
+        ) {
             Text(s.name, color = Color.White, fontFamily = Dsp, fontSize = 18.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Text(
                 whenText(s) + " · " + s.network,
@@ -290,6 +309,23 @@ fun ShowsScreen() {
         item(span = { GridItemSpan(maxLineSpan) }) {
             Column {
                 Heading(LocalDate.now().format(DateTimeFormatter.ofPattern("EEEE, MMM d")), "Ringside Alert")
+                val upNext = Store.shows.filter { it.start.isAfter(java.time.ZonedDateTime.now().minusMinutes(1)) }.minByOrNull { it.start }
+                if (upNext != null) {
+                    val t = whenText(upNext)
+                    val label = if (t == "Live now" || t.contains("·")) t
+                    else upNext.start.format(DateTimeFormatter.ofPattern("EEE, MMM d · h:mm a"))
+                    Row(
+                        Modifier.fillMaxWidth().padding(bottom = 12.dp).bevel(14.dp).clickable { Store.open = upNext.id }.padding(12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Column(Modifier.weight(1f)) {
+                            Text("UP NEXT", color = Accent, fontSize = 11.sp, letterSpacing = 1.sp)
+                            Text(upNext.name, fontFamily = Dsp, fontSize = 20.sp, color = MaterialTheme.colorScheme.onSurface)
+                            Text(label + " · " + upNext.network, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
+                        }
+                        BellButton(upNext.id)
+                    }
+                }
                 val rel = Store.rel
                 if (rel != null && Updater.isNewer(rel.version, ver)) {
                     Text(
