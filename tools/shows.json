@@ -156,6 +156,19 @@
   }
  },
  {
+  "id": "nwa-powerrr",
+  "company": "NWA",
+  "brand": "Powerrr",
+  "name": "NWA Powerrr",
+  "image": "nwa",
+  "watch": "Comet TV / Tubi",
+  "weekly": {
+   "day": "Saturday",
+   "time": "16:00",
+   "tz": "America/New_York"
+  }
+ },
+ {
   "id": "njpw",
   "company": "NJPW",
   "brand": "NJPW",

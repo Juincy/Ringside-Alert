@@ -80,24 +80,33 @@ object Alerts {
         }
         val alerts = p.getStringSet("alerts", emptySet())!!
         val off = p.getStringSet("off", emptySet())!!
-        val lead = p.getString("lead", "30 min before")!!
+        val leads = p.getStringSet("leads", null) ?: setOf(p.getString("lead", "30 min before")!!)
         val now = ZonedDateTime.now()
+        val horizon = now.plusDays(14)
         val fmt = DateTimeFormatter.ofPattern("h:mm a")
         val codes = HashSet<String>()
         for (s in Repo.cached(ctx)) {
-            if (s.id !in alerts || s.company in off) continue
-            val at = when (lead) {
-                "At start" -> s.start
-                "30 min before" -> s.start.minus(Duration.ofMinutes(30))
-                "1 hour before" -> s.start.minus(Duration.ofHours(1))
-                else -> s.start.toLocalDate().atTime(LocalTime.of(9, 0)).atZone(s.start.zone)
+            if (s.id !in alerts || s.company in off || s.start.isAfter(horizon)) continue
+            for (lead in leads) {
+                val at = when (lead) {
+                    "At start" -> s.start
+                    "15 min before" -> s.start.minus(Duration.ofMinutes(15))
+                    "30 min before" -> s.start.minus(Duration.ofMinutes(30))
+                    "1 hour before" -> s.start.minus(Duration.ofHours(1))
+                    "2 hours before" -> s.start.minus(Duration.ofHours(2))
+                    "1 day before" -> s.start.minus(Duration.ofDays(1))
+                    else -> s.start.toLocalDate().atTime(LocalTime.of(9, 0)).atZone(s.start.zone)
+                }
+                if (!at.isAfter(now)) continue
+                val code = (s.id + s.start.toInstant() + lead).hashCode()
+                val text = "${s.name} starts at ${s.start.format(fmt)} on ${s.network}"
+                val intent = pi(ctx, code, PendingIntent.FLAG_UPDATE_CURRENT, "Ringside Alert", text) ?: continue
+                try {
+                    am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at.toInstant().toEpochMilli(), intent)
+                    codes.add(code.toString())
+                } catch (e: Exception) {
+                }
             }
-            if (!at.isAfter(now)) continue
-            val code = (s.id + s.start.toInstant()).hashCode()
-            val text = "${s.name} starts at ${s.start.format(fmt)} on ${s.network}"
-            val intent = pi(ctx, code, PendingIntent.FLAG_UPDATE_CURRENT, "Ringside Alert", text) ?: continue
-            am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at.toInstant().toEpochMilli(), intent)
-            codes.add(code.toString())
         }
         p.edit().putStringSet("codes", codes).apply()
     }

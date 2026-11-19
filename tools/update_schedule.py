@@ -13,7 +13,7 @@ from datetime import datetime, time, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 API = "https://api.tvmaze.com"
-DAYS = 14
+DAYS = 42
 
 
 def get(path):

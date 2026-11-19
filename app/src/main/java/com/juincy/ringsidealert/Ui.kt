@@ -33,6 +33,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Star
@@ -81,13 +82,20 @@ import java.util.Locale
 val Dsp = FontFamily(Typeface.create("sans-serif-condensed", Typeface.BOLD))
 private val Accent = Color(0xFFD92D27)
 
-val FIT = setOf("aaa", "njpw", "tna", "mlw", "roh", "cmll")
-fun fitBg(n: String): Color = if (n == "roh" || n == "cmll") Color.White else Color.Black
+val FIT = setOf("aaa", "njpw", "tna", "mlw", "roh", "cmll", "nwa", "stardom", "royalrumble", "worldsend", "wrestlepalooza")
+fun fitBg(n: String): Color = when (n) {
+    "roh", "cmll", "nwa", "stardom", "wrestlepalooza" -> Color.White
+    "royalrumble" -> Color(0xFF1B0406)
+    "worldsend" -> Color(0xFF131249)
+    else -> Color.Black
+}
 
 fun watchUrl(net: String): String? {
     val n = net.lowercase()
     return when {
         "netflix" in n -> "https://www.netflix.com"
+        "comet" in n -> "https://comettv.com/watch-live/"
+        "stardom" in n -> "https://wwr-stardom.com/en/"
         "tubi" in n -> "https://tubitv.com"
         "fox deportes" in n -> "https://www.foxdeportes.com"
         "youtube" in n -> "https://www.youtube.com"
@@ -121,6 +129,8 @@ fun tint(c: String): Color = when (c) {
     "ROH" -> Color(0xFF8A6D1F)
     "MLW" -> Color(0xFF3D5A6C)
     "CMLL" -> Color(0xFF7A1F5A)
+    "NWA" -> Color(0xFF6B4E00)
+    "Stardom" -> Color(0xFFC2185B)
     else -> Color(0xFF854F0B)
 }
 
@@ -311,9 +321,36 @@ fun ShowsScreen() {
                         brands.forEach { b -> Chip(b, Store.brand == b) { Store.brand = b } }
                     }
                 }
+                val weekStart = LocalDate.now().plusDays(7L * Store.weekOffset)
+                Row(Modifier.fillMaxWidth().padding(bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        Icons.Filled.ArrowBack, "Previous week",
+                        Modifier.size(40.dp).clip(CircleShape).clickable(enabled = Store.weekOffset > 0) {
+                            Store.weekOffset -= 1
+                            Store.day = LocalDate.now().plusDays(7L * Store.weekOffset)
+                        }.padding(8.dp),
+                        tint = if (Store.weekOffset > 0) MaterialTheme.colorScheme.onSurface
+                        else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
+                    )
+                    Text(
+                        (if (Store.weekOffset == 0) "This week · " else "") +
+                            weekStart.format(DateTimeFormatter.ofPattern("MMM d")) + " – " +
+                            weekStart.plusDays(6).format(DateTimeFormatter.ofPattern("MMM d")),
+                        Modifier.weight(1f), textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurface,
+                    )
+                    Icon(
+                        Icons.Filled.ArrowForward, "Next week",
+                        Modifier.size(40.dp).clip(CircleShape).clickable(enabled = Store.weekOffset < 5) {
+                            Store.weekOffset += 1
+                            Store.day = LocalDate.now().plusDays(7L * Store.weekOffset)
+                        }.padding(8.dp),
+                        tint = if (Store.weekOffset < 5) MaterialTheme.colorScheme.onSurface
+                        else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
+                    )
+                }
                 Row(Modifier.fillMaxWidth().padding(bottom = 6.dp)) {
                     for (i in 0..6) {
-                        val d = LocalDate.now().plusDays(i.toLong())
+                        val d = weekStart.plusDays(i.toLong())
                         val on = d == Store.day
                         val has = Store.shows.any { it.start.toLocalDate() == d && matches(it) }
                         Column(
@@ -392,7 +429,7 @@ fun DetailScreen(id: String) {
             Spacer(Modifier.height(18.dp))
             val on = id in Store.alerts
             Text(
-                if (on) "Alert on · ${Store.lead}" else "Turn on alert",
+                if (on) "Alert on · " + LEADS.filter { it in Store.leads }.joinToString(", ") else "Turn on alert",
                 Modifier.fillMaxWidth().shadow(6.dp, RoundedCornerShape(14.dp)).clip(RoundedCornerShape(14.dp))
                     .background(Brush.verticalGradient(if (on) listOf(Color(0xFF3A3B44), Color(0xFF1E1F26)) else listOf(Color(0xFFFF625A), Color(0xFFB5231D))))
                     .clickable { Store.toggle(Store.alerts, id) }.padding(vertical = 14.dp),
@@ -468,8 +505,12 @@ fun AlertsScreen() {
         item { Heading("Settings", "Alerts") }
         item {
             Section("Notify me")
+            Text(
+                "Pick more than one time to get several alerts for each show.",
+                color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp, modifier = Modifier.padding(bottom = 8.dp),
+            )
             Row(Modifier.horizontalScroll(rememberScrollState()).padding(bottom = 6.dp), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                LEADS.forEach { l -> Chip(l, Store.lead == l) { Store.lead = l; Store.save() } }
+                LEADS.forEach { l -> Chip(l, l in Store.leads) { Store.toggleLead(l) } }
             }
             Section("Companies")
         }
@@ -528,6 +569,14 @@ fun SettingsScreen() {
                     Store.busy = false
                 }
             }
+        }
+        Section("Alert times")
+        Text(
+            "Pick more than one to get several alerts for each show.",
+            color = cs.onSurfaceVariant, fontSize = 13.sp, modifier = Modifier.padding(bottom = 8.dp),
+        )
+        Row(Modifier.horizontalScroll(rememberScrollState()).padding(bottom = 6.dp), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+            LEADS.forEach { l -> Chip(l, l in Store.leads) { Store.toggleLead(l) } }
         }
         Section("Testing alerts")
         Column(Modifier.fillMaxWidth().padding(bottom = 12.dp).bevel(14.dp).padding(14.dp)) {

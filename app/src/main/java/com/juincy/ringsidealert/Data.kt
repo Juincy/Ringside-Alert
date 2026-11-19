@@ -8,8 +8,8 @@ import java.net.URL
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-val COMPANIES = listOf("WWE", "AEW", "TNA", "ROH", "MLW", "AAA", "CMLL", "NJPW")
-val LEADS = listOf("At start", "30 min before", "1 hour before", "Morning of the show")
+val COMPANIES = listOf("WWE", "AEW", "TNA", "ROH", "MLW", "NWA", "AAA", "CMLL", "Stardom", "NJPW")
+val LEADS = listOf("At start", "15 min before", "30 min before", "1 hour before", "2 hours before", "Morning of the show", "1 day before")
 
 data class Show(
     val id: String,

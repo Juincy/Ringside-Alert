@@ -3,7 +3,7 @@
   "id": "wwe-survivor-series-2026",
   "company": "WWE",
   "name": "Survivor Series: WarGames",
-  "image": "",
+  "image": "survivorseries",
   "watch": "ESPN app",
   "startsAt": "2026-11-28T18:00:00-05:00"
  },
@@ -11,7 +11,7 @@
   "id": "wwe-wrestlepalooza-perth-2026",
   "company": "WWE",
   "name": "Wrestlepalooza: Perth",
-  "image": "",
+  "image": "wrestlepalooza",
   "watch": "ESPN app",
   "startsAt": "2026-12-12T05:30:00-05:00"
  },
@@ -19,7 +19,7 @@
   "id": "aew-worlds-end-2026",
   "company": "AEW",
   "name": "AEW Worlds End",
-  "image": "",
+  "image": "worldsend",
   "watch": "HBO Max / Prime Video / PPV",
   "startsAt": "2026-12-19T20:00:00-05:00"
  },
@@ -35,8 +35,16 @@
   "id": "wwe-royal-rumble-2027",
   "company": "WWE",
   "name": "Royal Rumble 2027",
-  "image": "",
+  "image": "royalrumble",
   "watch": "ESPN app",
   "startsAt": "2027-02-06T19:00:00-05:00"
+ },
+ {
+  "id": "stardom-dream-queendom-2026",
+  "company": "Stardom",
+  "name": "Stardom Dream Queendom 2026",
+  "image": "stardom",
+  "watch": "Stardom World",
+  "startsAt": "2026-12-29T17:00:00+09:00"
  }
 ]

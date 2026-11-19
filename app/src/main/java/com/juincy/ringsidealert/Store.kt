@@ -22,7 +22,8 @@ object Store {
     var company by mutableStateOf("All")
     var brand by mutableStateOf("All")
     var day by mutableStateOf(LocalDate.now())
-    var lead by mutableStateOf("30 min before")
+    val leads = mutableStateListOf<String>()
+    var weekOffset by mutableIntStateOf(0)
     var theme by mutableStateOf("system")
     var au by mutableStateOf(true)
     var wf by mutableStateOf(true)
@@ -43,7 +44,7 @@ object Store {
         alerts.addAll(p.getStringSet("alerts", emptySet())!!)
         val off = p.getStringSet("off", emptySet())!!
         cos.addAll(COMPANIES.filter { it !in off })
-        lead = p.getString("lead", lead)!!
+        leads.addAll(p.getStringSet("leads", null) ?: setOf(p.getString("lead", "30 min before")!!))
         theme = p.getString("theme", theme)!!
         au = p.getBoolean("au", true)
         wf = p.getBoolean("wf", true)
@@ -56,12 +57,21 @@ object Store {
             .putStringSet("favs", favs.toSet())
             .putStringSet("alerts", alerts.toSet())
             .putStringSet("off", COMPANIES.filter { it !in cos }.toSet())
-            .putString("lead", lead)
+            .putStringSet("leads", leads.toSet())
             .putString("theme", theme)
             .putBoolean("au", au)
             .putBoolean("wf", wf)
             .apply()
         Alerts.reschedule(app)
+    }
+
+    fun toggleLead(l: String) {
+        if (l in leads) {
+            if (leads.size > 1) leads.remove(l)
+        } else {
+            leads.add(l)
+        }
+        save()
     }
 
     fun toggle(list: MutableList<String>, id: String) {
