@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T00:44:07+00:00",
+ "updated": "2026-11-19T15:48:04+00:00",
  "shows": [
   {
    "id": "wwe-raw",
@@ -116,15 +116,6 @@
    "name": "WWE Evolve",
    "image": "evolve",
    "network": "Tubi",
-   "startsAt": "2026-11-18T20:00:00-05:00"
-  },
-  {
-   "id": "wwe-evolve",
-   "company": "WWE",
-   "brand": "Evolve",
-   "name": "WWE Evolve",
-   "image": "evolve",
-   "network": "Tubi",
    "startsAt": "2026-11-25T20:00:00-05:00"
   },
   {
@@ -162,6 +153,15 @@
    "image": "evolve",
    "network": "Tubi",
    "startsAt": "2026-12-23T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-evolve",
+   "company": "WWE",
+   "brand": "Evolve",
+   "name": "WWE Evolve",
+   "image": "evolve",
+   "network": "Tubi",
+   "startsAt": "2026-12-30T20:00:00-05:00"
   },
   {
    "id": "wwe-main-event",
@@ -278,15 +278,6 @@
    "name": "AEW Dynamite",
    "image": "dynamite",
    "network": "TBS / HBO Max",
-   "startsAt": "2026-11-18T20:00:00-05:00"
-  },
-  {
-   "id": "aew-dynamite",
-   "company": "AEW",
-   "brand": "Dynamite",
-   "name": "AEW Dynamite",
-   "image": "dynamite",
-   "network": "TBS / HBO Max",
    "startsAt": "2026-11-25T20:00:00-05:00"
   },
   {
@@ -324,6 +315,15 @@
    "image": "dynamite",
    "network": "TBS / HBO Max",
    "startsAt": "2026-12-23T20:00:00-05:00"
+  },
+  {
+   "id": "aew-dynamite",
+   "company": "AEW",
+   "brand": "Dynamite",
+   "name": "AEW Dynamite",
+   "image": "dynamite",
+   "network": "TBS / HBO Max",
+   "startsAt": "2026-12-30T20:00:00-05:00"
   },
   {
    "id": "aew-collision",
