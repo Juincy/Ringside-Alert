@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T15:29:37+00:00",
+ "updated": "2026-11-21T07:12:19+00:00",
  "shows": [
   {
    "id": "wwe-raw",
@@ -224,15 +224,6 @@
    "name": "Friday Night SmackDown",
    "image": "smackdown",
    "network": "USA Network",
-   "startsAt": "2026-11-20T20:00:00-05:00"
-  },
-  {
-   "id": "wwe-smackdown",
-   "company": "WWE",
-   "brand": "SmackDown",
-   "name": "Friday Night SmackDown",
-   "image": "smackdown",
-   "network": "USA Network",
    "startsAt": "2026-11-27T20:00:00-05:00"
   },
   {
@@ -270,6 +261,15 @@
    "image": "smackdown",
    "network": "USA Network",
    "startsAt": "2026-12-25T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-smackdown",
+   "company": "WWE",
+   "brand": "SmackDown",
+   "name": "Friday Night SmackDown",
+   "image": "smackdown",
+   "network": "USA Network",
+   "startsAt": "2027-01-01T20:00:00-05:00"
   },
   {
    "id": "aew-dynamite",
@@ -602,15 +602,6 @@
    "name": "CMLL Viernes Espectacular",
    "image": "cmll",
    "network": "YouTube (CMLL)",
-   "startsAt": "2026-11-20T20:30:00-06:00"
-  },
-  {
-   "id": "cmll-viernes",
-   "company": "CMLL",
-   "brand": "Viernes",
-   "name": "CMLL Viernes Espectacular",
-   "image": "cmll",
-   "network": "YouTube (CMLL)",
    "startsAt": "2026-11-27T20:30:00-06:00"
   },
   {
@@ -648,6 +639,15 @@
    "image": "cmll",
    "network": "YouTube (CMLL)",
    "startsAt": "2026-12-25T20:30:00-06:00"
+  },
+  {
+   "id": "cmll-viernes",
+   "company": "CMLL",
+   "brand": "Viernes",
+   "name": "CMLL Viernes Espectacular",
+   "image": "cmll",
+   "network": "YouTube (CMLL)",
+   "startsAt": "2027-01-01T20:30:00-06:00"
   },
   {
    "id": "nwa-powerrr",
