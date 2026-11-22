@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T07:12:19+00:00",
+ "updated": "2026-11-22T06:52:41+00:00",
  "shows": [
   {
    "id": "wwe-raw",
@@ -332,15 +332,6 @@
    "name": "AEW Collision",
    "image": "collision",
    "network": "TBS / HBO Max",
-   "startsAt": "2026-11-21T20:00:00-05:00"
-  },
-  {
-   "id": "aew-collision",
-   "company": "AEW",
-   "brand": "Collision",
-   "name": "AEW Collision",
-   "image": "collision",
-   "network": "TBS / HBO Max",
    "startsAt": "2026-11-28T20:00:00-05:00"
   },
   {
@@ -378,6 +369,15 @@
    "image": "collision",
    "network": "TBS / HBO Max",
    "startsAt": "2026-12-26T20:00:00-05:00"
+  },
+  {
+   "id": "aew-collision",
+   "company": "AEW",
+   "brand": "Collision",
+   "name": "AEW Collision",
+   "image": "collision",
+   "network": "TBS / HBO Max",
+   "startsAt": "2027-01-02T20:00:00-05:00"
   },
   {
    "id": "tna-impact",
@@ -548,15 +548,6 @@
    "name": "Lucha Libre AAA",
    "image": "aaa",
    "network": "Fox Deportes / YouTube",
-   "startsAt": "2026-11-21T22:00:00-05:00"
-  },
-  {
-   "id": "aaa",
-   "company": "AAA",
-   "brand": "AAA",
-   "name": "Lucha Libre AAA",
-   "image": "aaa",
-   "network": "Fox Deportes / YouTube",
    "startsAt": "2026-11-28T22:00:00-05:00"
   },
   {
@@ -594,6 +585,15 @@
    "image": "aaa",
    "network": "Fox Deportes / YouTube",
    "startsAt": "2026-12-26T22:00:00-05:00"
+  },
+  {
+   "id": "aaa",
+   "company": "AAA",
+   "brand": "AAA",
+   "name": "Lucha Libre AAA",
+   "image": "aaa",
+   "network": "Fox Deportes / YouTube",
+   "startsAt": "2027-01-02T22:00:00-05:00"
   },
   {
    "id": "cmll-viernes",
@@ -656,15 +656,6 @@
    "name": "NWA Powerrr",
    "image": "nwa",
    "network": "Comet TV / Tubi",
-   "startsAt": "2026-11-21T16:00:00-05:00"
-  },
-  {
-   "id": "nwa-powerrr",
-   "company": "NWA",
-   "brand": "Powerrr",
-   "name": "NWA Powerrr",
-   "image": "nwa",
-   "network": "Comet TV / Tubi",
    "startsAt": "2026-11-28T16:00:00-05:00"
   },
   {
@@ -702,6 +693,15 @@
    "image": "nwa",
    "network": "Comet TV / Tubi",
    "startsAt": "2026-12-26T16:00:00-05:00"
+  },
+  {
+   "id": "nwa-powerrr",
+   "company": "NWA",
+   "brand": "Powerrr",
+   "name": "NWA Powerrr",
+   "image": "nwa",
+   "network": "Comet TV / Tubi",
+   "startsAt": "2027-01-02T16:00:00-05:00"
   },
   {
    "id": "wwe-survivor-series-2026",
