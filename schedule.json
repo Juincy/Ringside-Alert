@@ -1,15 +1,6 @@
 {
- "updated": "2026-11-22T06:52:41+00:00",
+ "updated": "2026-11-24T09:57:21+00:00",
  "shows": [
-  {
-   "id": "wwe-raw",
-   "company": "WWE",
-   "brand": "Raw",
-   "name": "Monday Night Raw",
-   "image": "raw",
-   "network": "Netflix",
-   "startsAt": "2026-11-23T20:00:00-05:00"
-  },
   {
    "id": "wwe-raw",
    "company": "WWE",
@@ -54,6 +45,15 @@
    "image": "raw",
    "network": "Netflix",
    "startsAt": "2026-12-28T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-raw",
+   "company": "WWE",
+   "brand": "Raw",
+   "name": "Monday Night Raw",
+   "image": "raw",
+   "network": "Netflix",
+   "startsAt": "2027-01-04T20:00:00-05:00"
   },
   {
    "id": "wwe-nxt",
