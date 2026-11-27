@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T08:23:46+00:00",
+ "updated": "2026-11-27T08:38:31+00:00",
  "shows": [
   {
    "id": "wwe-raw",
@@ -170,15 +170,6 @@
    "name": "WWE Main Event",
    "image": "mainevent",
    "network": "YouTube",
-   "startsAt": "2026-11-26T20:00:00-05:00"
-  },
-  {
-   "id": "wwe-main-event",
-   "company": "WWE",
-   "brand": "Main Event",
-   "name": "WWE Main Event",
-   "image": "mainevent",
-   "network": "YouTube",
    "startsAt": "2026-12-03T20:00:00-05:00"
   },
   {
@@ -216,6 +207,15 @@
    "image": "mainevent",
    "network": "YouTube",
    "startsAt": "2026-12-31T20:00:00-05:00"
+  },
+  {
+   "id": "wwe-main-event",
+   "company": "WWE",
+   "brand": "Main Event",
+   "name": "WWE Main Event",
+   "image": "mainevent",
+   "network": "YouTube",
+   "startsAt": "2027-01-07T20:00:00-05:00"
   },
   {
    "id": "wwe-smackdown",
@@ -386,15 +386,6 @@
    "name": "TNA Thursday Night iMPACT!",
    "image": "tna",
    "network": "AMC / AMC+",
-   "startsAt": "2026-11-26T21:00:00-05:00"
-  },
-  {
-   "id": "tna-impact",
-   "company": "TNA",
-   "brand": "Impact",
-   "name": "TNA Thursday Night iMPACT!",
-   "image": "tna",
-   "network": "AMC / AMC+",
    "startsAt": "2026-12-03T21:00:00-05:00"
   },
   {
@@ -434,13 +425,13 @@
    "startsAt": "2026-12-31T21:00:00-05:00"
   },
   {
-   "id": "roh-tv",
-   "company": "ROH",
-   "brand": "ROH TV",
-   "name": "ROH TV",
-   "image": "roh",
-   "network": "HonorClub",
-   "startsAt": "2026-11-26T20:00:00-05:00"
+   "id": "tna-impact",
+   "company": "TNA",
+   "brand": "Impact",
+   "name": "TNA Thursday Night iMPACT!",
+   "image": "tna",
+   "network": "AMC / AMC+",
+   "startsAt": "2027-01-07T21:00:00-05:00"
   },
   {
    "id": "roh-tv",
@@ -488,13 +479,13 @@
    "startsAt": "2026-12-31T20:00:00-05:00"
   },
   {
-   "id": "mlw-fusion",
-   "company": "MLW",
-   "brand": "Fusion",
-   "name": "MLW Fusion",
-   "image": "mlw",
-   "network": "Tubi",
-   "startsAt": "2026-11-26T20:00:00-05:00"
+   "id": "roh-tv",
+   "company": "ROH",
+   "brand": "ROH TV",
+   "name": "ROH TV",
+   "image": "roh",
+   "network": "HonorClub",
+   "startsAt": "2027-01-07T20:00:00-05:00"
   },
   {
    "id": "mlw-fusion",
@@ -540,6 +531,15 @@
    "image": "mlw",
    "network": "Tubi",
    "startsAt": "2026-12-31T20:00:00-05:00"
+  },
+  {
+   "id": "mlw-fusion",
+   "company": "MLW",
+   "brand": "Fusion",
+   "name": "MLW Fusion",
+   "image": "mlw",
+   "network": "Tubi",
+   "startsAt": "2027-01-07T20:00:00-05:00"
   },
   {
    "id": "aaa",
